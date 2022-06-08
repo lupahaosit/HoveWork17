@@ -73,23 +73,24 @@ namespace HoveWork17
             adapter.InsertCommand.Parameters.Add("@Surname", SqlDbType.NVarChar, 20, "Surname");
             adapter.InsertCommand.Parameters.Add("@NAME", SqlDbType.NVarChar, 20, "[NAME]");
             adapter.InsertCommand.Parameters.Add("@LASTNAME", SqlDbType.NVarChar, 20, "LASTNAME");
-            adapter.InsertCommand.Parameters.Add("@NUBMER", SqlDbType.Int, 11, "NUMBER");
+            adapter.InsertCommand.Parameters.Add("@NUMBER", SqlDbType.Int, 11, "NUMBER");
             adapter.InsertCommand.Parameters.Add("@EMAIL", SqlDbType.NVarChar, 20, "EMAIL");
             #endregion
 
             #region Update
             sql = @"Update InfoTable Set
-                        Surname = @Surname
-                        [NAME] = @NAME
-                        LASTNAME = @LASTNAME
-                        NUMBER = @NUMBER
+                        Surname = @Surname,
+                        [NAME] = @[NAME],
+                        LASTNAME = @LASTNAME,
+                        NUMBER = @NUMBER,
                         EMAIL = @EMAIL
                     Where Id = @Id";
             adapter.UpdateCommand = new SqlCommand(sql, sqlConnection);
+            adapter.UpdateCommand.Parameters.Add("@Id", SqlDbType.Int, 0, "Id").SourceVersion = DataRowVersion.Original;
             adapter.UpdateCommand.Parameters.Add("@Surname", SqlDbType.NVarChar, 20, "Surname");
-            adapter.UpdateCommand.Parameters.Add("@NAME", SqlDbType.NVarChar, 20, "[NAME]");
+            adapter.UpdateCommand.Parameters.Add("@[NAME]", SqlDbType.NVarChar, 20, "[NAME]");
             adapter.UpdateCommand.Parameters.Add("@LASTNAME", SqlDbType.NVarChar, 20, "LASTNAME");
-            adapter.UpdateCommand.Parameters.Add("@NUBMER", SqlDbType.Int, 11, "NUMBER");
+            adapter.UpdateCommand.Parameters.Add("@NUMBER", SqlDbType.Int, 11, "NUMBER");
             adapter.UpdateCommand.Parameters.Add("@EMAIL", SqlDbType.NVarChar, 20, "EMAIL");
             #endregion
 
@@ -155,6 +156,22 @@ namespace HoveWork17
             var row = (DataRowView)GridView.SelectedItem;
             row.Row.Delete();
             adapter.Update(dataTable);
+        }
+
+        private void GridView_CurrentCellChanged(object sender, EventArgs e)
+        {
+            if (dataRow == null)
+            {
+                return;
+            }
+            dataRow.EndEdit();
+            adapter.Update(dataTable);
+        }
+
+        private void GridView_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+        {
+            dataRow = (DataRowView)GridView.SelectedItem;
+            dataRow.BeginEdit();
         }
     }
 }

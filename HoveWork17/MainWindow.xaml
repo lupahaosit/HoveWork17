@@ -19,7 +19,8 @@
             SelectionMode="Single"
             ItemsSource="{Binding}"
             IsReadOnly="False" 
-            
+            CurrentCellChanged="GridView_CurrentCellChanged"
+            CellEditEnding="GridView_CellEditEnding"
             >
           
 
