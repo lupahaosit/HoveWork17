@@ -8,8 +8,8 @@
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="70*"/>
-            <ColumnDefinition Width="30*"/>
+            <ColumnDefinition Width="50*"/>
+            <ColumnDefinition Width="50*"/>
         </Grid.ColumnDefinitions>
 
         <DataGrid
@@ -52,17 +52,53 @@
                     Binding="{Binding EMAIL}"
                     Header="Email"
                     />
-
-
             </DataGrid.Columns>
+
             <DataGrid.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="Add" Click="Data_Grid_Add"/>
                     <MenuItem Header="Remove" Click="Data_Grid_Remove"/>
                 </ContextMenu>
             </DataGrid.ContextMenu>
-
-
         </DataGrid>
+        <DataGrid
+            Grid.Row="0" Grid.Column="1"
+            x:Name="GV_Access"
+            IsSynchronizedWithCurrentItem="True"
+            SelectionMode="Single"
+            ItemsSource="{Binding}"
+            IsReadOnly="False" 
+            
+            >
+            <DataGrid.Columns >
+                <DataGridTextColumn
+                    x:Name="AccessId"
+                    Binding="{Binding Id}"
+                    Header="Id"
+                    IsReadOnly="True"/>
+                <DataGridTextColumn
+                    x:Name="AccessEmail"
+                    Binding="{Binding Email}"
+                    Header="Surname"
+                    />
+                <DataGridTextColumn
+                    x:Name="AccessCod"
+                    Binding="{Binding Cod}"
+                    Header="Name"
+                    />
+                <DataGridTextColumn
+                    x:Name="AccessObject"
+                    Binding="{Binding objctNumber}"
+                    Header="Lastname"
+                    />
+               
+            </DataGrid.Columns>
+
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+        </DataGrid>
+
     </Grid>
 </Window>

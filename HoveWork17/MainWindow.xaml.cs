@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.OleDb;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -25,11 +26,16 @@ namespace HoveWork17
         DataTable dataTable;
         SqlDataAdapter adapter;
         DataRowView dataRow;
+        OleDbDataAdapter DataAdapter;
+        DataRowView oledbdata;
+        DataSet ds;
+        DataTable dt;
 
         public MainWindow()
         {
             InitializeComponent();
             Preparing();
+            OledbPreparing();
 
         }
         private void Preparing()
@@ -96,8 +102,35 @@ namespace HoveWork17
 
             GridView.DataContext = dataTable.DefaultView;
 
-            
-           
+
+        }
+
+        public void OledbPreparing()
+        {
+            OleDbConnectionStringBuilder oleDbConnection = new OleDbConnectionStringBuilder()
+            {
+                DataSource = @"C:\Users\leman\source\repos\HoveWork17\HoveWork17\bin\Debug\Database3.mdb",
+                Provider = "Microsoft.Jet.OLEDB.4.0"
+
+
+
+            };
+            OleDbConnection connection = new OleDbConnection(oleDbConnection.ConnectionString);
+
+            var oledb = @"Select * from ObjectsInfo";
+            DataAdapter = new OleDbDataAdapter(oledb, oleDbConnection.ConnectionString);
+            ds = new DataSet();
+            dt = new DataTable();
+            DataAdapter.Fill(dt);
+
+
+            GV_Access.DataContext = dt.DefaultView;
+
+
+
+
+
+
 
         }
 
