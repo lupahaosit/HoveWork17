@@ -65,12 +65,13 @@ namespace HoveWork17
 
             #region Insert
             sql = @"Inset Into InfoTable(Surname, [Name], LASTNAME, NUMBER, EMAIL)
-                                           VALUES(@Surname, @[Name], @LASTNAME, @NUMBER, @EMAIL);
-                                    Set @Id = @@IDENTITY";      
+                                           VALUES(@Surname, @NAME, @LASTNAME, @NUMBER, @EMAIL);
+                                    SET @Id = @@IDENTITY;";      
 
             adapter.InsertCommand = new SqlCommand(sql, sqlConnection);
+            adapter.InsertCommand.Parameters.Add("@Id", SqlDbType.Int, 4, "Id").Direction = ParameterDirection.Output;
             adapter.InsertCommand.Parameters.Add("@Surname", SqlDbType.NVarChar, 20, "Surname");
-            adapter.InsertCommand.Parameters.Add("@[NAME]", SqlDbType.NVarChar, 20,  "[NAME]");
+            adapter.InsertCommand.Parameters.Add("@NAME", SqlDbType.NVarChar, 20, "[NAME]");
             adapter.InsertCommand.Parameters.Add("@LASTNAME", SqlDbType.NVarChar, 20, "LASTNAME");
             adapter.InsertCommand.Parameters.Add("@NUBMER", SqlDbType.Int, 11, "NUMBER");
             adapter.InsertCommand.Parameters.Add("@EMAIL", SqlDbType.NVarChar, 20, "EMAIL");
@@ -79,14 +80,14 @@ namespace HoveWork17
             #region Update
             sql = @"Update InfoTable Set
                         Surname = @Surname
-                        [NAME] = @[NAME]
+                        [NAME] = @NAME
                         LASTNAME = @LASTNAME
                         NUMBER = @NUMBER
                         EMAIL = @EMAIL
                     Where Id = @Id";
             adapter.UpdateCommand = new SqlCommand(sql, sqlConnection);
             adapter.UpdateCommand.Parameters.Add("@Surname", SqlDbType.NVarChar, 20, "Surname");
-            adapter.UpdateCommand.Parameters.Add("@[NAME]", SqlDbType.NVarChar, 20, "[NAME]");
+            adapter.UpdateCommand.Parameters.Add("@NAME", SqlDbType.NVarChar, 20, "[NAME]");
             adapter.UpdateCommand.Parameters.Add("@LASTNAME", SqlDbType.NVarChar, 20, "LASTNAME");
             adapter.UpdateCommand.Parameters.Add("@NUBMER", SqlDbType.Int, 11, "NUMBER");
             adapter.UpdateCommand.Parameters.Add("@EMAIL", SqlDbType.NVarChar, 20, "EMAIL");
@@ -136,11 +137,24 @@ namespace HoveWork17
 
         private void Data_Grid_Add(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Add");
+            DataRow r = dataTable.NewRow();
+            Window1 window1 = new Window1(r);
+            window1.ShowDialog();
+
+            if (window1.DialogResult.Value)
+            {
+                dataTable.Rows.Add(r);
+
+                adapter.Update(dataTable);
+               
+               
+            }
         }
         private void Data_Grid_Remove(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Remove");
+            var row = (DataRowView)GridView.SelectedItem;
+            row.Row.Delete();
+            adapter.Update(dataTable);
         }
     }
 }

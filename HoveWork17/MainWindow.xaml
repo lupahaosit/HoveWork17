@@ -21,38 +21,7 @@
             IsReadOnly="False" 
             
             >
-            <DataGrid.Columns >
-                <DataGridTextColumn
-                    x:Name="Id"
-                    Binding="{Binding Id}"
-                    Header="Id"
-                    IsReadOnly="True"/>
-                <DataGridTextColumn
-                    x:Name="Surname"
-                    Binding="{Binding Surname}"
-                    Header="Surname"
-                    />
-                <DataGridTextColumn
-                    x:Name="NAME"
-                    Binding="{Binding NAME}"
-                    Header="Name"
-                    />
-                <DataGridTextColumn
-                    x:Name="LASTNAME"
-                    Binding="{Binding LASTNAME}"
-                    Header="Lastname"
-                    />
-                <DataGridTextColumn
-                    x:Name="NUBMER"
-                    Binding="{Binding NUMBER}"
-                    Header="Number"
-                    />
-                <DataGridTextColumn
-                    x:Name="EMAIL"
-                    Binding="{Binding EMAIL}"
-                    Header="Email"
-                    />
-            </DataGrid.Columns>
+          
 
             <DataGrid.ContextMenu>
                 <ContextMenu>
@@ -70,30 +39,9 @@
             IsReadOnly="False" 
             
             >
-            <DataGrid.Columns >
-                <DataGridTextColumn
-                    x:Name="AccessId"
-                    Binding="{Binding Id}"
-                    Header="Id"
-                    IsReadOnly="True"/>
-                <DataGridTextColumn
-                    x:Name="AccessEmail"
-                    Binding="{Binding Email}"
-                    Header="Surname"
-                    />
-                <DataGridTextColumn
-                    x:Name="AccessCod"
-                    Binding="{Binding Cod}"
-                    Header="Name"
-                    />
-                <DataGridTextColumn
-                    x:Name="AccessObject"
-                    Binding="{Binding objctNumber}"
-                    Header="Lastname"
-                    />
+           
                
-            </DataGrid.Columns>
-
+         
             <DataGrid.ContextMenu>
                 <ContextMenu>
                 </ContextMenu>

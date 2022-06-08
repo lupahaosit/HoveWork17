@@ -1,18 +1,6 @@
-﻿INSERT INTO InfoTable (Surname, [NAME], LASTNAME, NUMBER, EMAIL) 
-VALUEs('WorkerSurname','WorkerName','WorkerLastName','','Worker@mail.ru')
-INSERT INTO InfoTable (Surname, [NAME], LASTNAME, NUMBER, EMAIL) 
-VALUES('WorkerSurname2','WorkerName2','WorkerLastName2','','Worker2@mail.ru')
-INSERT INTO InfoTable (Surname, [NAME], LASTNAME, NUMBER, EMAIL) 
-VALUES('WorkerSurname3','WorkerName3','WorkerLastName3','','Worker3@mail.ru')
-INSERT INTO InfoTable (Surname, [NAME], LASTNAME, NUMBER, EMAIL) 
-VALUES('WorkerSurname4','WorkerName4','WorkerLastName4','','Worker4@mail.ru')
-INSERT INTO InfoTable (Surname, [NAME], LASTNAME, NUMBER, EMAIL) 
-VALUES('WorkerSurname5','WorkerName5','WorkerLastName5','','Worker5@mail.ru')
-INSERT INTO InfoTable (Surname, [NAME], LASTNAME, NUMBER, EMAIL) 
-VALUES('WorkerSurname6','WorkerName6','WorkerLastName6','','Worker6@mail.ru')
-INSERT INTO InfoTable (Surname, [NAME], LASTNAME, NUMBER, EMAIL) 
-VALUES('WorkerSurname7','WorkerName7','WorkerLastName7','','Worker7@mail.ru')
-INSERT INTO InfoTable (Surname, [NAME], LASTNAME, NUMBER, EMAIL) 
-VALUES('WorkerSurname8','WorkerName8','WorkerLastName8','','Worker8@mail.ru')
-select * from InfoTable
-drop table InfoTable
+﻿Insert Into InfoTable (Surname, [NAME], LASTNAME, NUMBER, EMAIL)
+values ('WorkerSurname9','WorkerName9','WorkerLastName9','','Worker9@mail.ru')
+Insert Into InfoTable (Surname, [NAME], LASTNAME, NUMBER, EMAIL)
+values ('WorkerSurname7','WorkerName7','WorkerLastName7','','Worker7@mail.ru')
+
+Select* from InfoTable;
