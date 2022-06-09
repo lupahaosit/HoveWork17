@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:HoveWork17"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+   
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="50*"/>
@@ -20,7 +21,7 @@
             ItemsSource="{Binding}"
             IsReadOnly="False" 
             CurrentCellChanged="GridView_CurrentCellChanged"
-            CellEditEnding="GridView_CellEditEnding"
+            CellEditEnding="GridView_CellEditEnding" Margin="0,0,5,43"
             >
           
 
@@ -28,6 +29,7 @@
                 <ContextMenu>
                     <MenuItem Header="Add" Click="Data_Grid_Add"/>
                     <MenuItem Header="Remove" Click="Data_Grid_Remove"/>
+                    <MenuItem  Header="all purchases" Click="MenuItem_Click"/>
                 </ContextMenu>
             </DataGrid.ContextMenu>
         </DataGrid>
@@ -37,16 +39,9 @@
             IsSynchronizedWithCurrentItem="True"
             SelectionMode="Single"
             ItemsSource="{Binding}"
-            IsReadOnly="False" 
-            
+            IsReadOnly="False" Margin="7,0,0,42"             
             >
-           
-               
-         
-            <DataGrid.ContextMenu>
-                <ContextMenu>
-                </ContextMenu>
-            </DataGrid.ContextMenu>
+
         </DataGrid>
 
     </Grid>

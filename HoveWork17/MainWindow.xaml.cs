@@ -27,7 +27,7 @@ namespace HoveWork17
         SqlDataAdapter adapter;
         DataRowView dataRow;
         OleDbDataAdapter DataAdapter;
-        DataRowView oledbdata;
+
         DataSet ds;
         DataTable dt;
 
@@ -64,14 +64,14 @@ namespace HoveWork17
             #endregion
 
             #region Insert
-            sql = @"Inset Into InfoTable(Surname, [Name], LASTNAME, NUMBER, EMAIL)
-                                           VALUES(@Surname, @NAME, @LASTNAME, @NUMBER, @EMAIL);
+            sql = @"Insert Into InfoTable (Surname,WorkerNAME, LASTNAME, NUMBER, EMAIL)
+                                           VALUES (@Surname, @WorkerNAME, @LASTNAME, @NUMBER, @EMAIL);
                                     SET @Id = @@IDENTITY;";      
 
             adapter.InsertCommand = new SqlCommand(sql, sqlConnection);
             adapter.InsertCommand.Parameters.Add("@Id", SqlDbType.Int, 4, "Id").Direction = ParameterDirection.Output;
             adapter.InsertCommand.Parameters.Add("@Surname", SqlDbType.NVarChar, 20, "Surname");
-            adapter.InsertCommand.Parameters.Add("@NAME", SqlDbType.NVarChar, 20, "[NAME]");
+            adapter.InsertCommand.Parameters.Add("@WorkerNAME", SqlDbType.NVarChar, 20, "WorkerNAME");
             adapter.InsertCommand.Parameters.Add("@LASTNAME", SqlDbType.NVarChar, 20, "LASTNAME");
             adapter.InsertCommand.Parameters.Add("@NUMBER", SqlDbType.Int, 11, "NUMBER");
             adapter.InsertCommand.Parameters.Add("@EMAIL", SqlDbType.NVarChar, 20, "EMAIL");
@@ -80,7 +80,7 @@ namespace HoveWork17
             #region Update
             sql = @"Update InfoTable Set
                         Surname = @Surname,
-                        [NAME] = @[NAME],
+                       WorkerNAME = @WorkerNAME,
                         LASTNAME = @LASTNAME,
                         NUMBER = @NUMBER,
                         EMAIL = @EMAIL
@@ -88,7 +88,7 @@ namespace HoveWork17
             adapter.UpdateCommand = new SqlCommand(sql, sqlConnection);
             adapter.UpdateCommand.Parameters.Add("@Id", SqlDbType.Int, 0, "Id").SourceVersion = DataRowVersion.Original;
             adapter.UpdateCommand.Parameters.Add("@Surname", SqlDbType.NVarChar, 20, "Surname");
-            adapter.UpdateCommand.Parameters.Add("@[NAME]", SqlDbType.NVarChar, 20, "[NAME]");
+            adapter.UpdateCommand.Parameters.Add("@WorkerNAME", SqlDbType.NVarChar, 20, "WorkerNAME");
             adapter.UpdateCommand.Parameters.Add("@LASTNAME", SqlDbType.NVarChar, 20, "LASTNAME");
             adapter.UpdateCommand.Parameters.Add("@NUMBER", SqlDbType.Int, 11, "NUMBER");
             adapter.UpdateCommand.Parameters.Add("@EMAIL", SqlDbType.NVarChar, 20, "EMAIL");
@@ -111,16 +111,20 @@ namespace HoveWork17
         {
             OleDbConnectionStringBuilder oleDbConnection = new OleDbConnectionStringBuilder()
             {
-                DataSource = @"C:\Users\leman\source\repos\HoveWork17\HoveWork17\bin\Debug\Database3.mdb",
+                DataSource = @"Database3.mdb",
                 Provider = "Microsoft.Jet.OLEDB.4.0"
 
 
 
             };
             OleDbConnection connection = new OleDbConnection(oleDbConnection.ConnectionString);
-
+            DataAdapter = new OleDbDataAdapter();
+            #region Select
+            var cmdText = "SELECT Id, Email, Cod, objectName FROM ObjectsInfo";
+            DataAdapter.SelectCommand = new OleDbCommand(cmdText, connection);
             var oledb = @"Select * from ObjectsInfo";
             DataAdapter = new OleDbDataAdapter(oledb, oleDbConnection.ConnectionString);
+            #endregion
             ds = new DataSet();
             dt = new DataTable();
             DataAdapter.Fill(dt);
@@ -135,7 +139,7 @@ namespace HoveWork17
 
 
         }
-
+        #region sqlWork
         private void Data_Grid_Add(object sender, RoutedEventArgs e)
         {
             DataRow r = dataTable.NewRow();
@@ -172,6 +176,26 @@ namespace HoveWork17
         {
             dataRow = (DataRowView)GridView.SelectedItem;
             dataRow.BeginEdit();
+        }
+        #endregion
+
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+          
+
+            var row = (DataRowView)GridView.SelectedItem;
+            string x = (string)row["EMAIL"];
+            Window2 window2 = new Window2(x);
+            window2.ShowDialog();
+
+        }
+
+        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
+        {
+            var row = (DataRowView)GV_Access.SelectedItem;      
+            row.Row.Delete();
+            DataAdapter.Update(dt);
         }
     }
 }

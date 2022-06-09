@@ -22,15 +22,15 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         
-        <TextBox Grid.Row="1" Grid.Column="0"  Text="text" FontSize="20" 
+        <TextBox Grid.Row="1" Grid.Column="0"  Text="SureName" FontSize="20" 
                   HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <TextBox Grid.Row="2" Grid.Column="0"  Text="text" FontSize="20" 
+        <TextBox Grid.Row="2" Grid.Column="0"  Text="Name" FontSize="20" 
                  HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <TextBox Grid.Row="3" Grid.Column="0"  Text="text" FontSize="20" 
+        <TextBox Grid.Row="3" Grid.Column="0"  Text="LastName" FontSize="20" 
                  HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <TextBox Grid.Row="4" Grid.Column="0"  Text="text" FontSize="20" 
+        <TextBox Grid.Row="4" Grid.Column="0"  Text="Number" FontSize="20" 
                   HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <TextBox Grid.Row="5" Grid.Column="0"  Text="text" FontSize="20" 
+        <TextBox Grid.Row="5" Grid.Column="0"  Text="Email" FontSize="20" 
                  HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
       
         <Button x:Name="BT_Add" Grid.Column="0" Grid.Row="7" Content="Add"  FontSize="30"/>
