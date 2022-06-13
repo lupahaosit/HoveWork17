@@ -20,9 +20,11 @@
             SelectionMode="Single"
             ItemsSource="{Binding}"
             IsReadOnly="False" 
+            AutoGenerateColumns="True"
             CurrentCellChanged="GridView_CurrentCellChanged"
             CellEditEnding="GridView_CellEditEnding" Margin="0,0,5,43"
             >
+          
           
 
             <DataGrid.ContextMenu>

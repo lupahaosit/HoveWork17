@@ -31,10 +31,11 @@ namespace HoveWork17
             BT_Add.Click += delegate
             {
                 row["Surname"] = Add_Surname.Text;
-                row["WorkerNAME"] = Add_Name.Text; 
+                row["NAME"] = Add_Name.Text;
                 row["LASTNAME"] = Add_LastName.Text;
-                row["NUMBER"] = Convert.ToInt32(Add_number.Text);              
+                row["NUMBER"] = (Add_number.Text);
                 row["EMAIL"] = Add_email.Text;
+
                 this.DialogResult = true;
             };
         }
