@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.OleDb;
 using System.Data.SqlClient;
@@ -15,7 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using System.Data.Entity.Migrations;
 namespace HoveWork17
 {
     /// <summary>
@@ -25,16 +26,19 @@ namespace HoveWork17
     {
         MSSQLLocalDBEntities1 model = new MSSQLLocalDBEntities1();
 
-        List<InfoTable> infoTables = new List<InfoTable>();
+        ObservableCollection<InfoTable> infoTables = new ObservableCollection<InfoTable>();
         List<ObjectsInfoSet> objectsInfos = new List<ObjectsInfoSet>();
         Random rnd = new Random();
         DataTable dataTable = new DataTable();
-       
+        InfoTable dataRow;
+
+
+
         public MainWindow()
         {
             InitializeComponent();
 
-
+            
 
             #region Заполнение InfoTable
 
@@ -192,47 +196,53 @@ namespace HoveWork17
         #region sqlWork
         private void Data_Grid_Add(object sender, RoutedEventArgs e)
         {
-            DataRow r = dataTable.NewRow();
+            InfoTable r = new InfoTable();
             Window1 window1 = new Window1(r);
             window1.ShowDialog();
 
             if (window1.DialogResult.Value)
             {
-                dataTable.Rows.Add(r);
-                var x = new InfoTable
-                {
-                    Surname = (string)r["Surname"],
-                    NAME = (string)r["Name"],
-                    LASTNAME = (string)r["LastName"],
-                    NUMBER = (string)r["Number"],
-                    EMAIL = (string)r["Email"],
-                    
-                };
-                model.InfoTable.Add(x);
-                infoTables.Add(x);
+                infoTables.Add(r);
+                model.InfoTable.Add(r);
+                model.SaveChanges();
+              
             }
         }
         private void Data_Grid_Remove(object sender, RoutedEventArgs e)
         {
-            //var row = (DataRowView)GridView.SelectedItem;
-            //row.Row.Delete();
+            var row = GridView.SelectedItem;
+            InfoTable x = (InfoTable)row;
+            model.InfoTable.Remove((InfoTable)x);
+            infoTables.Remove((InfoTable)x);
+            GridView.ItemsSource = infoTables;
+            model.SaveChanges();
+
+
+
 
         }
 
-        private void GridView_CurrentCellChanged(object sender, EventArgs e)
-        {
-            //if (dataRow == null)
-            //{
-            //    return;
-            //}
-            //dataRow.EndEdit();
-            //adapter.Update(dataTable);
-        }
+       
 
         private void GridView_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
-            //dataRow = (DataRowView)GridView.SelectedItem;
-            //dataRow.BeginEdit();
+
+            dataRow = (InfoTable)GridView.SelectedItem;
+        }
+        private void GridView_CurrentCellChanged(object sender, EventArgs e)
+        {
+            dataRow = (InfoTable)GridView.SelectedItem;
+            if (dataRow.Surname == null || dataRow.NAME == null || dataRow.LASTNAME == null || dataRow.EMAIL == null )
+            {
+                return;
+            }
+            InfoTable x = (InfoTable)GridView.SelectedItem;
+            int y = GridView.SelectedIndex;
+            infoTables[y] = x;
+            model.InfoTable.AddOrUpdate(E => E.Id, x);
+            model.SaveChanges();
+           
+
         }
         #endregion
 
@@ -240,21 +250,51 @@ namespace HoveWork17
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
 
+            InfoTable y = (InfoTable)GridView.SelectedItem;
+            var x = model.InfoTable.Join(model.ObjectsInfoSet,
+                InfoTable => InfoTable.EMAIL,
+                ObjectsInfoSet => ObjectsInfoSet.Email,
+                (InfoTable, ObjectsInfoSet) => new
+                {
+                    InfoTable.Id,
+                    InfoTable.Surname,
+                    InfoTable.NAME,
+                    InfoTable.LASTNAME,
+                    InfoTable.EMAIL,
+                    InfoTable.NUMBER,
+                    ObjectsInfoSet.Cod,
+                    ObjectsInfoSet.objectName
+                });
 
-            //var row = (DataRowView)GridView.SelectedItem;
-            //string x = (string)row["EMAIL"];
-            //Window2 window2 = new Window2(x);
-            //window2.ShowDialog();
+            List<result> results = new List<result>();
+            foreach (var item in x)
+            {
+                if (item.Id == y.Id)
+                {
+                    results.Add(new result
+                    {
+                        Name = item.NAME,
+                        Id = item.Id,
+                        Surname = item.Surname,
+                        LastName = item.LASTNAME,
+                        Number = item.NUMBER,
+                        Email = item.EMAIL,
+                        Cod = item.Cod,
+                        ObjectName = item.objectName
+
+                    });
+                }
+               
+            }
+            Window2 window2 = new Window2(results);
+           
+           window2.ShowDialog();
 
         }
 
-        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
-        {
-            //var row = (DataRowView)GV_Access.SelectedItem;
-            //row.Row.Delete();
+     
 
-        }
-
+       
     }
 
 }

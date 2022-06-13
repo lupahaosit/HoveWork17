@@ -15,11 +15,7 @@
                   
                   IsReadOnly="True" 
                 x:Name="DG" >
-            <DataGrid.ContextMenu>
-                <ContextMenu>
-                    <MenuItem Header="Close" Click="MenuItem_Click"/>
-                </ContextMenu>
-            </DataGrid.ContextMenu>
+            
            
         </DataGrid>
     </Grid>

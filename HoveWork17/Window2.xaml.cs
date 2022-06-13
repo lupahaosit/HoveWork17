@@ -33,34 +33,32 @@ namespace HoveWork17
            
 
         }
-        public Window2(string x) : this()
+        public Window2(List<result> x) : this()
         {
+            #region устаревшее
+            //OleDbConnectionStringBuilder oleDbConnection = new OleDbConnectionStringBuilder()
+            //{
+            //    DataSource = @"Database3.mdb",
+            //    Provider = "Microsoft.Jet.OLEDB.4.0"
 
-            OleDbConnectionStringBuilder oleDbConnection = new OleDbConnectionStringBuilder()
-            {
-                DataSource = @"Database3.mdb",
-                Provider = "Microsoft.Jet.OLEDB.4.0"
 
 
+            //};
+            //OleDbConnection connection = new OleDbConnection(oleDbConnection.ConnectionString);
 
-            };
-            OleDbConnection connection = new OleDbConnection(oleDbConnection.ConnectionString);
 
-            
-            var cmdText =$@"Select Cod, objectName from ObjectsInfo Where (Email  = " + "'"  + x + "')";
+            //var cmdText =$@"Select Cod, objectName from ObjectsInfo Where (Email  = " + "'"  + x + "')";
+            //oleDbData = new OleDbDataAdapter(cmdText, connection);
+            //dt2 = new DataTable();
+            //oleDbData.Fill(dt2);
+            #endregion
 
-            oleDbData = new OleDbDataAdapter(cmdText, connection);
-            dt2 = new DataTable();
-            oleDbData.Fill(dt2);
-            DG.DataContext = dt2.DefaultView;
+            DG.ItemsSource = x;
         }
        
 
 
 
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
+       
     }
 }

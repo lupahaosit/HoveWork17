@@ -20,12 +20,20 @@
             SelectionMode="Single"
             ItemsSource="{Binding}"
             IsReadOnly="False" 
-            AutoGenerateColumns="True"
+            AutoGenerateColumns="False"
             CurrentCellChanged="GridView_CurrentCellChanged"
             CellEditEnding="GridView_CellEditEnding" Margin="0,0,5,43"
             >
-          
-          
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Binding="{Binding Id}" x:Name="Id"/>
+                <DataGridTextColumn Header="Surname" Binding="{Binding Surname}" x:Name="Surname1"/>
+                <DataGridTextColumn Header="Name" Binding="{Binding NAME}" x:Name="Name"/>
+                <DataGridTextColumn Header="LastName" Binding="{Binding LASTNAME}" x:Name="LastName"/>
+                <DataGridTextColumn Header="Number" Binding="{Binding NUMBER}" x:Name="Number"/>
+                <DataGridTextColumn Header="Email" Binding="{Binding EMAIL}" x:Name="Email"/>
+            </DataGrid.Columns>
+
+
 
             <DataGrid.ContextMenu>
                 <ContextMenu>

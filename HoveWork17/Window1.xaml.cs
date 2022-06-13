@@ -25,17 +25,17 @@ namespace HoveWork17
             InitializeComponent();
             Add_number.Text = null;
         }
-        public Window1(DataRow row) : this()
+        public Window1(InfoTable row) : this()
         {
             BT_cancel.Click += delegate { this.DialogResult = false; };
             BT_Add.Click += delegate
             {
-                row["Surname"] = Add_Surname.Text;
-                row["NAME"] = Add_Name.Text;
-                row["LASTNAME"] = Add_LastName.Text;
-                row["NUMBER"] = (Add_number.Text);
-                row["EMAIL"] = Add_email.Text;
-
+                
+                row.Surname = Add_Surname.Text;
+                row.NAME = Add_Name.Text;
+                row.LASTNAME = Add_LastName.Text;
+                row.NUMBER = (Add_number.Text);
+                row.EMAIL = Add_email.Text;   
                 this.DialogResult = true;
             };
         }
